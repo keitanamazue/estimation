@@ -1,101 +1,562 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { atom, useAtom } from "jotai";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+
+import { useRouter } from "next/navigation";
+
+import { contactFormAtom } from "@/app/jotai"; // jotaiのatomをインポート
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Link from "next/link";
+
+function EstimateForm() {
+  const [value, setValue] = useAtom(contactFormAtom);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div>
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardHeader className="bg-blue-400 text-white text-center py-4">
+          <CardTitle className="text-2xl font-bold">御見積書</CardTitle>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="grid grid-cols-4 gap-2">
+            {/* お客さん */}
+            <div className="col-span-2">
+              <Label htmlFor="clientName" className="text-xs">
+                お客様名
+              </Label>
+              <Input
+                id="property_name"
+                value={value.customer.name}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    customer: { ...value.customer, name: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            {/* お客さん */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            {/* 仲介会社 */}
+            <div className="col-span-2">
+              <Label htmlFor="clientName" className="text-xs">
+                ブローカー名
+              </Label>
+              <Input
+                id="property_name"
+                value={value.broker.name}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, name: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="brokerTel" className="text-xs">
+                ブローカー電話番号
+              </Label>
+              <Input
+                id="brokerTel"
+                value={value.broker.tel}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, tel: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="brokerFax" className="text-xs">
+                ブローカーファックス
+              </Label>
+              <Input
+                id="brokerFax"
+                value={value.broker.fax}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, fax: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="brokerEmail" className="text-xs">
+                ブローカーメール
+              </Label>
+              <Input
+                id="brokerEmail"
+                value={value.broker.email}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, email: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="brokerAddress" className="text-xs">
+                ブローカー住所
+              </Label>
+              <Input
+                id="brokerAddress"
+                value={value.broker.address}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, address: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+
+            {/* 仲介会社 */}
+
+            <div className="col-span-2">
+              <Label htmlFor="propertyType" className="text-xs">
+                物件タイプ
+              </Label>
+              <Input
+                id="propertyType"
+                value={value.property.type}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: { ...value.property, type: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="creationDate" className="text-xs">
+                作成日
+              </Label>
+              <Input
+                id="creationDate"
+                value={value.property.creationDate}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      creationDate: e.target.value,
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="expirationDate" className="text-xs">
+                有効期限
+              </Label>
+              <Input
+                id="expirationDate"
+                value={value.property.expirationDate}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      expirationDate: e.target.value,
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div className="col-span-4">
+              <Label htmlFor="propertyName" className="text-xs">
+                物件名
+              </Label>
+              <Input
+                id="propertyName"
+                value={value.property.name}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: { ...value.property, name: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="initialCost" className="text-xs">
+                初期費用 (円)
+              </Label>
+              <Input
+                id="initialCost"
+                type="text"
+                value={value.property.initialCost}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      initialCost: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="monthlyFee" className="text-xs">
+                月額費 (円)
+              </Label>
+              <Input
+                id="monthlyFee"
+                type="text"
+                value={value.property.monthlyFee}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      monthlyFee: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="moveInDate" className="text-xs">
+                入居予定日
+              </Label>
+              <Input
+                id="moveInDate"
+                value={value.property.moveInDate}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: { ...value.property, moveInDate: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="contractPeriod" className="text-xs">
+                契約期間
+              </Label>
+              <Input
+                id="contractPeriod"
+                value={value.property.contractPeriod}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      contractPeriod: e.target.value,
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="basicRent" className="text-xs">
+                基本賃料 (円)
+              </Label>
+              <Input
+                id="basicRent"
+                type="text"
+                value={value.property.basicRent}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      basicRent: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="managementFee" className="text-xs">
+                共益管理費 (円)
+              </Label>
+              <Input
+                id="managementFee"
+                type="text"
+                value={value.property.managementFee}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      managementFee: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="parkingFee" className="text-xs">
+                駐車場料金 (円)
+              </Label>
+              <Input
+                id="parkingFee"
+                type="text"
+                value={value.property.parkingFee}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      parkingFee: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="contractRenewalFee" className="text-xs">
+                契約更新料 (円)
+              </Label>
+              <Input
+                id="contractRenewalFee"
+                type="text"
+                value={value.property.contractRenewalFee}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      contractRenewalFee: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="initialGuaranteeFee" className="text-xs">
+                初回保証料 (円)
+              </Label>
+              <Input
+                id="initialGuaranteeFee"
+                type="text"
+                value={value.property.initialGuaranteeFee}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      initialGuaranteeFee: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="monthlyGuaranteeFee" className="text-xs">
+                月次保証料 (円)
+              </Label>
+              <Input
+                id="monthlyGuaranteeFee"
+                type="text"
+                value={value.property.monthlyGuaranteeFee}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    property: {
+                      ...value.property,
+                      monthlyGuaranteeFee: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+          </div>
+          <div className="space-y-4 mt-8">
+            <div className="grid grid-cols-8 gap-4 items-center font-bold mb-2">
+              <div>項目</div>
+              <div>金額</div>
+              <div>単位</div>
+              <div className="col-span-2">費用タイプ</div>
+              <div>初期費用合計</div>
+              <div>月次費用合計</div>
+              <div>備考</div>
+            </div>
+
+            {value.costs.map((cost, index) => (
+              <div key={index} className="grid grid-cols-8 gap-4 items-center">
+                <Label className="text-sm font-medium">{cost.項目}</Label>
+                <Input
+                  type="text"
+                  value={cost.金額}
+                  onChange={(e) =>
+                    setValue({
+                      ...value,
+                      costs: value.costs.map((c, i) =>
+                        i === index ? { ...c, 金額: Number(e.target.value) } : c
+                      ),
+                    })
+                  }
+                  className="col-span-1"
+                />
+                <div className="flex items-center space-x-2">
+                  <Select
+                    value={cost.単位}
+                    onValueChange={(val) =>
+                      setValue({
+                        ...value,
+                        costs: value.costs.map((c, i) =>
+                          i === index ? { ...c, 単位: val } : c
+                        ),
+                      })
+                    }
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Theme" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="円">円</SelectItem>
+                      <SelectItem value="月">月</SelectItem>
+                      <SelectItem value="ヶ月">ヶ月</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id={`initialCost-${index}`}
+                    checked={cost.初期費用}
+                    onCheckedChange={(checked) =>
+                      setValue({
+                        ...value,
+                        costs: value.costs.map((c, i) =>
+                          i === index ? { ...c, 初期費用: checked } : c
+                        ),
+                      })
+                    }
+                  />
+                  <Label htmlFor={`initialCost-${index}`} className="text-sm">
+                    初期費用
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id={`monthlyCost-${index}`}
+                    checked={cost.月次費用}
+                    onCheckedChange={(checked) =>
+                      setValue({
+                        ...value,
+                        costs: value.costs.map((c, i) =>
+                          i === index ? { ...c, 月次費用: checked } : c
+                        ),
+                      })
+                    }
+                  />
+                  <Label htmlFor={`monthlyCost-${index}`} className="text-sm">
+                    月次費用
+                  </Label>
+                </div>
+                <Input
+                  type="text"
+                  value={cost.初期費用合計}
+                  onChange={(e) =>
+                    setValue({
+                      ...value,
+                      costs: value.costs.map((c, i) =>
+                        i === index
+                          ? { ...c, 初期費用合計: Number(e.target.value) }
+                          : c
+                      ),
+                    })
+                  }
+                  className="col-span-1"
+                />
+                <Input
+                  type="text"
+                  value={cost.月次費用合計}
+                  onChange={(e) =>
+                    setValue({
+                      ...value,
+                      costs: value.costs.map((c, i) =>
+                        i === index
+                          ? { ...c, 月次費用合計: Number(e.target.value) }
+                          : c
+                      ),
+                    })
+                  }
+                  className="col-span-1"
+                />
+                <Input
+                  type="text"
+                  value={cost.備考}
+                  onChange={(e) =>
+                    setValue({
+                      ...value,
+                      costs: value.costs.map((c, i) =>
+                        i === index ? { ...c, 備考: e.target.value } : c
+                      ),
+                    })
+                  }
+                  className="col-span-1"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-4">
+            <Label htmlFor="remarks" className="text-xs">
+              備考・注意事項
+            </Label>
+            <Textarea
+              id="remarks"
+              value={value.remarks}
+              onChange={(e) => setValue({ ...value, remarks: e.target.value })}
+              className="h-24 text-sm"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          </div>
+        </CardContent>
+        <CardFooter className="bg-gray-800 py-2 px-4">
+          <Link href="/estimation" className="w-full">
+            送信
+          </Link>
+        </CardFooter>
+      </Card>
     </div>
   );
+}
+
+export default function Component() {
+  return <EstimateForm />;
 }
