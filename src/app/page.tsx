@@ -210,7 +210,7 @@ function EstimateForm() {
                 className="h-8 text-sm"
               />
             </div>
-            <div>
+            {/* <div>
               <Label htmlFor="initialCost" className="text-xs">
                 初期費用 (円)
               </Label>
@@ -229,8 +229,8 @@ function EstimateForm() {
                 }
                 className="h-8 text-sm"
               />
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <Label htmlFor="monthlyFee" className="text-xs">
                 月額費 (円)
               </Label>
@@ -249,7 +249,7 @@ function EstimateForm() {
                 }
                 className="h-8 text-sm"
               />
-            </div>
+            </div> */}
             <div>
               <Label htmlFor="moveInDate" className="text-xs">
                 入居予定日
@@ -418,7 +418,10 @@ function EstimateForm() {
             </div>
 
             {value.costs.map((cost, index) => (
-              <div key={index} className="grid grid-cols-8 gap-4 items-center">
+              <div
+                key={cost.備考}
+                className="grid grid-cols-8 gap-4 items-center"
+              >
                 <Label className="text-sm font-medium">{cost.項目}</Label>
                 <Input
                   type="text"
@@ -463,7 +466,7 @@ function EstimateForm() {
                       setValue({
                         ...value,
                         costs: value.costs.map((c, i) =>
-                          i === index ? { ...c, 初期費用: checked } : c
+                          i === index ? { ...c, 初期費用: !!checked } : c
                         ),
                       })
                     }
@@ -480,7 +483,7 @@ function EstimateForm() {
                       setValue({
                         ...value,
                         costs: value.costs.map((c, i) =>
-                          i === index ? { ...c, 月次費用: checked } : c
+                          i === index ? { ...c, 月次費用: !!checked } : c
                         ),
                       })
                     }
@@ -547,9 +550,9 @@ function EstimateForm() {
             />
           </div>
         </CardContent>
-        <CardFooter className="bg-gray-800 py-2 px-4">
+        <CardFooter className="bg-gray-800 py-2 px-4 text-white text-center text-xl font-bold">
           <Link href="/estimation" className="w-full">
-            送信
+            次へ
           </Link>
         </CardFooter>
       </Card>
