@@ -22,7 +22,7 @@ export default function Page() {
 
   console.log({ value });
   return (
-    <Card className="w-full max-w-4xl mx-auto">
+    <Card className="w-full max-w-7xl mx-auto">
       <CardHeader className="bg-blue-400  text-center py-6">
         <CardTitle className="text-2xl font-bold">御見積書</CardTitle>
       </CardHeader>
@@ -41,26 +41,14 @@ export default function Page() {
           <div>
             <h3 className="font-bold">物件名：{value.property.name}</h3>
           </div>
-          <div className="flex items-center">
-            <div className="bg-navy-blue  p-2 mr-2">
-              <p className="text-sm">初期費用</p>
-              <p className="text-2xl font-bold">
-                ¥
-                {value.costs
-                  .reduce((acc, cost) => acc + cost.初期費用合計, 0)
-                  .toLocaleString()}
-              </p>
-            </div>
-          </div>
         </div>
         <div className="flex justify-between">
-          <div className="bg-gray-100 p-2 mb-4">
+          <div className="bg-gray-100 p-2 mb-4 flex flex-col items-start gap-4">
             <p className="text-xl font-bold">
               初期費用（税込） ¥
               {value.costs
                 .reduce((acc, cost) => acc + cost.初期費用合計, 0)
                 .toLocaleString()}
-              /月
             </p>
             <p className="text-xl">
               月額費（税込） ¥
@@ -72,10 +60,12 @@ export default function Page() {
           </div>
           <div>
             <div className="space-y-2 text-sm text-right">
+              <p>会社名: {value.broker.company_name}</p>
+              <p>担当: {value.broker.name}</p>
               <p>メールアドレス: {value.broker.email}</p>
               <p>TEL: {value.broker.tel}</p>
               <p>FAX: {value.broker.fax}</p>
-              <p>担当: {value.broker.name}</p>
+              <p>免許: {value.broker.license}</p>
             </div>
           </div>
         </div>
@@ -91,7 +81,7 @@ export default function Page() {
             <TableHeader>
               <TableRow>
                 <TableHead colSpan={2} className="text-center">
-                  基本設定
+                  基本情報
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -203,15 +193,15 @@ export default function Page() {
         </div>
       </CardContent>
       <CardHeader className="bg-gray-800  py-2 px-4">
-        <h2 className="text-lg font-semibold">備考・注意事項</h2>
+        <h2 className="text-lg font-semibold flex justify-center">
+          備考・注意事項
+        </h2>
       </CardHeader>
       <CardContent className="p-4 space-y-2">
         <p className="text-sm">{value.remarks}</p>
       </CardContent>
-      <CardFooter className="bg-gray-800  py-2 px-4 text-sm">
-        <a href="https://kuramori.estate/" className="hover:underline">
-          倉森不動産株式会社 https://kuramori.estate/
-        </a>
+      <CardFooter className="bg-gray-800  py-2 px-4 text-sm flex justify-center">
+        合同会社RHY
       </CardFooter>
     </Card>
   );

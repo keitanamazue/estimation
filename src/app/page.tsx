@@ -139,6 +139,42 @@ function EstimateForm() {
             </div>
 
             {/* 仲介会社 */}
+            <div className="col-span-2">
+              <Label htmlFor="company_name" className="text-xs">
+                会社名
+              </Label>
+              <Input
+                id="company_name"
+                value={value.broker.company_name}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, company_name: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+
+            {/* 仲介会社 */}
+            <div className="col-span-2">
+              <Label htmlFor="license" className="text-xs">
+                免許
+              </Label>
+              <Input
+                id="license"
+                value={value.broker.license}
+                onChange={(e) =>
+                  setValue({
+                    ...value,
+                    broker: { ...value.broker, license: e.target.value },
+                  })
+                }
+                className="h-8 text-sm"
+              />
+            </div>
+
+            {/* 仲介会社 */}
 
             <div className="col-span-2">
               <Label htmlFor="propertyType" className="text-xs">
@@ -462,14 +498,20 @@ function EstimateForm() {
                   <Checkbox
                     id={`initialCost-${index}`}
                     checked={cost.初期費用}
-                    onCheckedChange={(checked) =>
+                    onCheckedChange={(checked) => {
+                      const newCosts = value.costs
+                        .map((c, i) =>
+                          i === index ? { ...c, 初期費用: !!checked } : c
+                        )
+                        .map((c) => ({
+                          ...c,
+                          初期費用合計: c.初期費用 ? c.金額 : 0,
+                        }));
                       setValue({
                         ...value,
-                        costs: value.costs.map((c, i) =>
-                          i === index ? { ...c, 初期費用: !!checked } : c
-                        ),
-                      })
-                    }
+                        costs: newCosts,
+                      });
+                    }}
                   />
                   <Label htmlFor={`initialCost-${index}`} className="text-sm">
                     初期費用
@@ -479,14 +521,20 @@ function EstimateForm() {
                   <Checkbox
                     id={`monthlyCost-${index}`}
                     checked={cost.月次費用}
-                    onCheckedChange={(checked) =>
+                    onCheckedChange={(checked) => {
+                      const newCosts = value.costs
+                        .map((c, i) =>
+                          i === index ? { ...c, 月次費用: !!checked } : c
+                        )
+                        .map((c) => ({
+                          ...c,
+                          月次費用合計: c.月次費用 ? c.金額 : 0,
+                        }));
                       setValue({
                         ...value,
-                        costs: value.costs.map((c, i) =>
-                          i === index ? { ...c, 月次費用: !!checked } : c
-                        ),
-                      })
-                    }
+                        costs: newCosts,
+                      });
+                    }}
                   />
                   <Label htmlFor={`monthlyCost-${index}`} className="text-sm">
                     月次費用

@@ -1,25 +1,5 @@
 import { atom } from "jotai";
 
-// // Atoms for each form field
-// export const clientNameAtom = atom("");
-// export const propertyTypeAtom = atom("");
-// export const creationDateAtom = atom("");
-// export const expirationDateAtom = atom("2024年7月10日");
-// export const propertyNameAtom = atom("ロイヤルパークスER万代1217");
-// export const initialCostAtom = atom(645120);
-// export const monthlyFeeAtom = atom(160893);
-// export const moveInDateAtom = atom("2024年7月15日");
-// export const contractPeriodAtom = atom("2年");
-// export const contractRenewalFeeAtom = atom(129000);
-// export const basicRentAtom = atom(129000);
-// export const managementFeeAtom = atom(16000);
-// export const parkingFeeAtom = atom(14300);
-// export const initialGuaranteeFeeAtom = atom(35000);
-// export const monthlyGuaranteeFeeAtom = atom(1593);
-// export const remarksAtom = atom(
-//   "契約年数及び更新費用：当物件の契約年数は2年間とし、契約更新料は129000円となります。\n保証会社契約関連：保証会社契約金として初回契約時に35000円が必要となります。"
-// );
-// export const costBreakdownAtom = atom(initialCosts);
 const initialCosts = [
   "賃料",
   "日割り家賃",
@@ -57,10 +37,12 @@ type ContactFormState = {
   };
   broker: {
     name: string;
+    company_name: string;
     tel: string;
     fax: string;
     email: string;
     address: string;
+    license: string;
   };
   property: {
     name: string;
@@ -91,14 +73,16 @@ type ContactFormState = {
 
 export const contactFormAtom = atom<ContactFormState>({
   customer: {
-    name: "高山様",
+    name: "",
   },
   broker: {
-    name: "仲介太郎",
+    name: "鯰江",
+    company_name: "合同会社RHY",
     tel: "",
     fax: "",
     email: "",
-    address: "",
+    address: "大阪府大阪市東成区深江北1-3-5三好ビル306",
+    license: "大阪府知事(1)第65124号",
   },
   property: {
     name: "ロイヤルパークスER万代1217",
