@@ -33,7 +33,7 @@ const initialCosts = [
 	備考: process.env.NODE_ENV === "development" ? "" : "",
 }));
 
-type ContactFormState = {
+export type ContactFormState = {
 	customer: {
 		name: string;
 	};
@@ -88,7 +88,7 @@ export const contactFormAtom = atom<ContactFormState>({
 	},
 	property: {
 		name: "ロイヤルパークスER万代1217",
-		type: "",
+		type: "マンション",
 		creationDate: "",
 		expirationDate:
 			process.env.NODE_ENV === "development" ? "2024年7月10日" : "",

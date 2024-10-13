@@ -22,8 +22,8 @@ export default function Page() {
 
 	return (
 		<Card className="w-full max-w-7xl mx-auto">
-			<CardHeader className="bg-black text-white text-center py-6">
-				<CardTitle className="text-2xl font-bold">御見積書</CardTitle>
+			<CardHeader className="bg-white text-black text-center py-6">
+				<CardTitle className="text-4xl font-bold">御見積書</CardTitle>
 			</CardHeader>
 			<CardContent className="p-6">
 				<div className="flex justify-between items-start mb-4">
@@ -39,17 +39,18 @@ export default function Page() {
 				<div className="flex justify-between items-center mb-4">
 					<div>
 						<h3 className="font-bold">物件名：{value.property.name}</h3>
+						<h3 className="font-bold">物件タイプ：{value.property.type}</h3>
 					</div>
 				</div>
 				<div className="flex justify-between">
-					<div className="bg-gray-100 py-4 pl-4 pr-24 mb-4 flex flex-col items-start gap-4">
-						<p className="text-xl font-bold">
+					<div className=" py-4 pr-24 mb-4 flex flex-col items-start gap-4">
+						<p className="text-3xl font-bold">
 							初期費用（税込） ¥
 							{value.costs
 								.reduce((acc, cost) => acc + cost.初期費用合計, 0)
 								.toLocaleString()}
 						</p>
-						<p className="text-xl">
+						<p className="text-3xl">
 							月額費（税込） ¥
 							{value.costs
 								.reduce((acc, cost) => acc + cost.月次費用合計, 0)
@@ -59,7 +60,7 @@ export default function Page() {
 					</div>
 					<div>
 						<div className="space-y-2 text-sm text-right">
-							<p className="text-xl font-bold">
+							<p className="text-3xl font-bold">
 								仲介業者: {value.broker.company_name}
 							</p>
 							<p>住所: {value.broker.address}</p>
@@ -185,7 +186,7 @@ export default function Page() {
 					</p>
 				</div>
 			</CardContent>
-			<CardHeader className="bg-black  py-2 px-4 text-white">
+			<CardHeader className="bg-black text-white  py-2 px-4 ">
 				<h2 className="text-lg font-semibold flex justify-center">
 					備考・注意事項
 				</h2>
@@ -193,7 +194,7 @@ export default function Page() {
 			<CardContent className="p-4 space-y-2">
 				<p className="text-sm">{value.remarks}</p>
 			</CardContent>
-			<CardFooter className="bg-black  text-white  py-2 px-4 text-sm flex justify-center">
+			<CardFooter className="bg-black  text-white  py-2 px-4 text-md flex justify-center">
 				合同会社RHY
 			</CardFooter>
 		</Card>

@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useState } from "react";
+import { CalendarInput } from "@/components/CalendarInput";
+import { SelectInput } from "@/components/SelectInput";
 
 function EstimateForm() {
 	const router = useRouter();
@@ -38,6 +40,8 @@ function EstimateForm() {
 		setValue(formValue);
 		router.push("/estimation");
 	};
+
+	console.log({ formValue });
 
 	return (
 		<div>
@@ -193,54 +197,34 @@ function EstimateForm() {
 							<Label htmlFor="propertyType" className="text-xs">
 								物件タイプ
 							</Label>
-							<Input
-								id="propertyType"
-								value={formValue.property.type}
-								onChange={(e) =>
-									setFormValue({
-										...formValue,
-										property: { ...formValue.property, type: e.target.value },
-									})
-								}
-								className="h-8 text-sm"
+							<SelectInput
+								formValue={formValue}
+								setFormValue={setFormValue}
+								category="property"
+								name="type"
 							/>
 						</div>
-						<div className="col-span-2">
+						<div className="col-span-2 flex flex-col">
 							<Label htmlFor="creationDate" className="text-xs">
 								作成日
 							</Label>
-							<Input
-								id="creationDate"
-								value={formValue.property.creationDate}
-								onChange={(e) =>
-									setFormValue({
-										...formValue,
-										property: {
-											...formValue.property,
-											creationDate: e.target.value,
-										},
-									})
-								}
-								className="h-8 text-sm"
+							<CalendarInput
+								formValue={formValue}
+								setFormValue={setFormValue}
+								category="property"
+								name="creationDate"
 							/>
 						</div>
 						<div className="col-span-2">
 							<Label htmlFor="expirationDate" className="text-xs">
 								有効期限
 							</Label>
-							<Input
-								id="expirationDate"
-								value={formValue.property.expirationDate}
-								onChange={(e) =>
-									setFormValue({
-										...formValue,
-										property: {
-											...formValue.property,
-											expirationDate: e.target.value,
-										},
-									})
-								}
-								className="h-8 text-sm"
+
+							<CalendarInput
+								formValue={formValue}
+								setFormValue={setFormValue}
+								category="property"
+								name="expirationDate"
 							/>
 						</div>
 						<div className="col-span-4">
@@ -259,63 +243,15 @@ function EstimateForm() {
 								className="h-8 text-sm"
 							/>
 						</div>
-						{/* <div>
-              <Label htmlFor="initialCost" className="text-xs">
-                初期費用 (円)
-              </Label>
-              <Input
-                id="initialCost"
-                type="text"
-                value={formValue.property.initialCost}
-                onChange={(e) =>
-                  setFormValue({
-                    ...formValue,
-                    property: {
-                      ...formValue.property,
-                      initialCost: Number(e.target.value),
-                    },
-                  })
-                }
-                className="h-8 text-sm"
-              />
-            </div> */}
-						{/* <div>
-              <Label htmlFor="monthlyFee" className="text-xs">
-                月額費 (円)
-              </Label>
-              <Input
-                id="monthlyFee"
-                type="text"
-                value={formValue.property.monthlyFee}
-                onChange={(e) =>
-                  setFormValue({
-                    ...formValue,
-                    property: {
-                      ...formValue.property,
-                      monthlyFee: Number(e.target.value),
-                    },
-                  })
-                }
-                className="h-8 text-sm"
-              />
-            </div> */}
 						<div>
 							<Label htmlFor="moveInDate" className="text-xs">
 								入居予定日
 							</Label>
-							<Input
-								id="moveInDate"
-								value={formValue.property.moveInDate}
-								onChange={(e) =>
-									setFormValue({
-										...formValue,
-										property: {
-											...formValue.property,
-											moveInDate: e.target.value,
-										},
-									})
-								}
-								className="h-8 text-sm"
+							<CalendarInput
+								formValue={formValue}
+								setFormValue={setFormValue}
+								category="property"
+								name="moveInDate"
 							/>
 						</div>
 						<div>
