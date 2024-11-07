@@ -5,7 +5,11 @@ type ResidentialProperty =
   | "戸建て住宅"
   | "タウンハウス";
 
-type CommercialProperty = "オフィスビル" | "店舗・テナント" | "倉庫・工場";
+type CommercialProperty =
+  | "オフィスビル"
+  | "店舗・テナント"
+  | "倉庫・工場"
+  | "事務所";
 
 type InvestmentProperty = "ワンルームマンション" | "アパート一棟" | "商業施設";
 
@@ -40,6 +44,7 @@ const commercialProperties: CommercialProperty[] = [
   "オフィスビル",
   "店舗・テナント",
   "倉庫・工場",
+  "事務所",
 ];
 
 const investmentProperties: InvestmentProperty[] = [
