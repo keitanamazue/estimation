@@ -22,6 +22,7 @@ const initialCosts = [
   "カードキー発行手数料",
   "初回保証料 ",
   "月次保証料",
+  "仲介手数料",
 ].map((item) => ({
   項目: item,
   金額: process.env.NODE_ENV === "development" ? 1000 : 0,
